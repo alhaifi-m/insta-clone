@@ -3,7 +3,7 @@ import LandingPage from "@/components/landing-page";
 
 export default function Index() {
   return (
-    <View>
+    <View style={{flex:1}}>
       <LandingPage />
     </View>
   );
