@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 
@@ -8,7 +8,21 @@ const LandingPage = () => {
       colors={["#fdf497", "#fd5949", "#d6249f", "#285AEB"]}
       style={styles.container}
     >
-      <Text></Text>
+      {/* Clone Logo */}
+      <Image
+      source={{uri:"https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"}}
+      style={styles.logo}
+      />
+      <Text style={styles.title}>Welcome to Clone</Text>
+      <Text style={styles.subtitle}>Connect with friends and share moments</Text>
+
+      <TouchableOpacity style={styles.button}>
+        <Text style={styles.buttonText}>Log In</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={[styles.button, styles.secondaryButton]}>
+        <Text style={[styles.buttonText, styles.secondaryButtonText]}>Sign Up</Text>
+      </TouchableOpacity>
+
     </LinearGradient>
   );
 };
@@ -23,4 +37,45 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     width: "100%",
   },
-});
+  logo:{
+    width: 100,
+    height: 100,
+    marginBottom: 20,
+    borderRadius: 20,
+  },
+   title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: "#fff",
+    marginBottom: 10
+   },
+   subtitle:{
+    fontSize: 16,
+    color: "white",
+    paddingHorizontal: 20,
+    marginBottom: 30
+   },
+   button: {
+    backgroundColor: '#fff',
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    borderRadius: 30,
+    marginVertical: 10,
+    width:"60%",
+    alignItems:"center"
+   },
+   buttonText:{
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: '#d6249f'
+   },
+   
+   secondaryButton:{
+    backgroundColor: "transparent",
+    borderWidth: 2,
+    borderColor:"#fff"
+   },
+   secondaryButtonText: {
+    color: "#fff"
+   }
+   });
