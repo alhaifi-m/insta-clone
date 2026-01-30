@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, StatusBar, Image, ScrollView, FlatList } from 'react-native'
 import React from 'react'
 
 
@@ -62,12 +62,158 @@ const posts = [
 
 const MainPage = () => {
   return (
-    <View>
-      <Text>main-page</Text>
+    <View style={styles.container}>
+     {/* Header */}
+     <View style={styles.header}>
+      <Image 
+      source={{uri:"https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"}}
+      style={styles.logo}
+      />
+      <Text style={styles.headerText}>Insta Clone</Text>
+
+     </View>
+
+     {/* Stories Section */}
+
+     <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.storyContainer}>
+      {
+        stories.map((story)=>(
+          <View key={story.id} style={styles.story}>
+            <Image 
+            source={{ uri: story.image}}
+            style={styles.storyImage}
+            />
+            <Text style={styles.storyName}>{story.name}</Text>
+          </View>
+        ))
+      }
+     </ScrollView>
+
+     {/* Post Section */}
+     <FlatList 
+     data ={posts}
+      keyExtractor={(post) => post.id}
+      renderItem={({item})=>(
+        <View style={styles.postContainer}>
+          <View style={styles.userInfo}>
+          {/* user Info */}
+          <Image source={{uri:item.profileImage}} style={styles.profileImage} />
+          <Text style={styles.userName}>{item.username}</Text>
+          </View>
+          {/* Post Image */}
+          <Image source={{uri:item.postImage}} style={styles.postImage} />
+          {/* Likes and Captions */}
+          <View style={styles.postDetails}>
+            <Text style={styles.likes}>{item.likes} likes</Text>
+            <Text style={styles.caption}>
+              <Text style={styles.bold}>{item.username}</Text>
+              {item.caption}
+            </Text>
+
+          </View>
+        </View>
+
+        
+      )}
+     
+     />
     </View>
   )
 }
 
 export default MainPage
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container:{
+    flex:1,
+    paddingTop:StatusBar.currentHeight,
+    backgroundColor:"#fff"
+  },
+  logo:{
+    width: 50,
+    height: 50,
+    borderRadius: 35,
+    borderWidth: 2,
+    borderColor:"#d6249f",
+    resizeMode:"cover",
+    marginRight: 20,
+  },
+  header:{
+    flexDirection:"row",
+    alignItems:"center",
+    padding: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ddd",
+  },
+  headerText:{
+    fontSize: 18,
+    fontWeight: "bold",
+  }, 
+  storyContainer:{
+    flexDirection:"row",
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+  },
+  story: {
+    alignItems: "center",
+    marginRight: 15,
+    width: 90
+  },
+  storyImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 35,
+    borderWidth: 2,
+    borderColor:"#d6249f",
+    resizeMode:"cover",
+  },
+  storyName:{
+    marginTop: 5,
+    fontSize: 12,
+    textAlign:"center",
+    color:"#333",
+    width: 85,
+    overflow:"hidden",
+    paddingBottom: 15,
+  },
+  postContainer:{
+    marginBottom: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ddd",
+    paddingBottom: 10,
+  },
+  profileImage:{
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginRight: 10,
+  },
+  userName:{
+    fontWeight:"bold",
+    fontSize: 16,
+  },
+  userInfo: {
+    flexDirection:"row",
+    alignItems:"center",
+    paddingHorizontal: 15,
+    marginBottom: 10,
+  },
+  postImage:{
+    width: "100%",
+    height: 300,
+    borderRadius: 10,
+    resizeMode:"cover",
+  }, postDetails:{
+    padding: 10,
+  },
+  likes:{
+    fontWeight:"bold",
+  },
+  caption: {
+    marginTop: 5,
+  },
+  bold:{
+    fontWeight:"bold",
+    marginRight: 5
+  }
+})
